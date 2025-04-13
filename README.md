@@ -4,7 +4,7 @@ There are several views that allows user to performs actions related with employ
 In the application users are able to open tabs for various views at the same moment.
 
 # Database
-This application uses the SQL database for storying data.
+This application uses the SQL database for storing data.
 
 There is provided .sql file in 'SQL_Queries' folder that contains:
 1. Creation of database (HR_Management-DatabaseCreation.sql)
