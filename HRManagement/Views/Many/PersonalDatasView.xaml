@@ -1,0 +1,91 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HRManagement.Views.Many"
+             xmlns:Many="clr-namespace:HRManagement.ViewModels.Many" x:Class="HRManagement.Views.Many.PersonalDatasView"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Views/Single/CreatingResources.xaml"/>
+    </UserControl.Resources>
+
+    <d:UserControl.DataContext>
+        <Many:PersonalDatasViewModel/>
+    </d:UserControl.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ToolBar Grid.Row="0">
+            <Button Margin="10 0" Content="Create new" Command="{Binding CreateNewWindowCommand}"/>
+            <Button Margin="10 0" Content="Refresh" Command="{Binding RefreshCommand}"/>
+            <Button Margin="10 0" Content="Delete" Command="{Binding DeleteCommand}" />
+        </ToolBar>
+
+        <GroupBox Header="Filters" Grid.Row="1">
+            <WrapPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <Label Content="Employee: name"/>
+                    <TextBox Text="{Binding EmployeeName}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="80" Margin="5,0,0,0"/>
+                    <Label Content="surname"/>
+                    <TextBox Text="{Binding EmployeeSurname}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="80" Margin="5,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,5">
+                    <Label Content="Pesel"/>
+                    <TextBox Text="{Binding PeselFilter}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="100" Margin="5,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,5">
+                    <Label Content="Birth place"/>
+                    <TextBox Text="{Binding BirthPlaceFilter}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="100" Margin="5,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,5">
+                    <Label Content="Education"/>
+                    <TextBox Text="{Binding EducationFilter}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="100" Margin="5,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,5">
+                    <Label Content="Childrens From"/>
+                    <TextBox Text="{Binding ChildrensFrom}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="40" Margin="5,0,0,0"/>
+                    <Label Content="To"/>
+                    <TextBox Text="{Binding ChildrensTo}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="40" Margin="0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,5">
+                    <Label Content="Year Of Birth From"/>
+                    <TextBox Text="{Binding DateFrom}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="60" Margin="5,0,0,0"/>
+                    <Label Content="To"/>
+                    <TextBox Text="{Binding DateTo}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="60" Margin="5,0,0,0"/>
+                </StackPanel>
+
+                <ContentControl ContentTemplate="{StaticResource OrderBySectionTemplate}" Content="{Binding}" />
+
+                <Button Content="Filter" Command="{Binding RefreshCommand}" Style="{StaticResource AddSimpleItemButtonTemplate}" Width="80" Margin="15,0,0,5"/>
+                <Button Content="Clean" Command="{Binding CleanFiltersCommand}" Style="{StaticResource AddSimpleItemButtonTemplate}" Width="80" Margin="10,0,0,5" />
+                
+            </WrapPanel>
+        </GroupBox>
+        
+        <GroupBox Header="Personal Data" Grid.Row="2">
+            <DataGrid ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Width="25" Binding="{Binding Id}" />
+                    <DataGridTextColumn Header="Employee" Width="3*" Binding="{Binding EmployeeName}" />
+                    <DataGridTextColumn Header="PESEL" Width="2*" Binding="{Binding Pesel}" />
+                    <DataGridTextColumn Header="Phone Number" Width="2*" Binding="{Binding PhoneNumber}" />
+                    <DataGridTextColumn Header="Date Of Birth" Width="2*" Binding="{Binding DateOfBirth}" />
+                    <DataGridTextColumn Header="Place Of Birth" Width="2*" Binding="{Binding PlaceOfBirth}" />
+                    <DataGridTextColumn Header="Childrens" Width="60" Binding="{Binding ChildrenQuantity}" />
+                    <DataGridTextColumn Header="Education" Width="2*" Binding="{Binding Education}" />
+                    <DataGridTextColumn Header="Registration Adress" Width="5*" Binding="{Binding RegistrationAdress.ShortAdressDisplay}" />
+                    <DataGridTextColumn Header="Residence Adress" Width="5*" Binding="{Binding ResidenceAdress.ShortAdressDisplay}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+    </Grid>
+</UserControl>

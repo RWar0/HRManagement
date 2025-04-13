@@ -1,0 +1,311 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Styles for elements -->
+
+    <Style x:Key="AddButtonTemplate" TargetType="{x:Type Button}">
+        <Setter Property="Width" Value="150px"/>
+        <Setter Property="Height" Value="25px"/>
+        <Setter Property="Margin" Value="0,50,0,0"/>
+        <Setter Property="FontSize" Value="13px" />
+
+        <Setter Property="Background" Value="PaleGreen"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" 
+                        CornerRadius="8" 
+                        BorderThickness="1" 
+                        BorderBrush="Green">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="LawnGreen"/>
+            </Trigger>
+
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="GreenYellow"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="AddSimpleItemButtonTemplate" TargetType="{x:Type Button}">
+        <Setter Property="Width" Value="150px"/>
+        <Setter Property="Height" Value="25px"/>
+        <Setter Property="Margin" Value="0,50,0,0"/>
+        <Setter Property="FontSize" Value="13px" />
+
+        <Setter Property="Background" Value="AliceBlue"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" 
+                    CornerRadius="8" 
+                    BorderThickness="1" 
+                    BorderBrush="CornflowerBlue">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="LightSkyBlue"/>
+            </Trigger>
+
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="CornflowerBlue"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DeleteSimpleItemButtonTemplate" TargetType="{x:Type Button}">
+        <Setter Property="Width" Value="150px"/>
+        <Setter Property="Height" Value="25px"/>
+        <Setter Property="Margin" Value="0,50,0,0"/>
+        <Setter Property="FontSize" Value="13px" />
+
+        <Setter Property="Background" Value="BurlyWood"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" 
+                CornerRadius="8" 
+                BorderThickness="1" 
+                BorderBrush="Brown">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="Goldenrod"/>
+            </Trigger>
+
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="Coral"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="MessageLabelTemplate" TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="14px" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="10" />
+    </Style>
+
+    <Style x:Key="ShortInputTextBoxTemplate" TargetType="{x:Type TextBox}">
+        <Setter Property="Width" Value="300px" />
+        <Setter Property="Margin" Value="10,0,0,0" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+
+        <Setter Property="Background" Value="White" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border Background="{TemplateBinding Background}"
+                                BorderBrush="CornflowerBlue"
+                                BorderThickness="1"
+                                CornerRadius="8">
+                        <ScrollViewer Margin="1" x:Name="PART_ContentHost"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#FFF9F9F9"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ComboBoxTemplate" TargetType="{x:Type ComboBox}">
+        <Setter Property="Width" Value="220px" />
+
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="DatePickerTemplate" TargetType="{x:Type DatePicker}">
+        <Setter Property="Width" Value="120px" />
+        <Setter Property="Margin" Value="23,0,0,0"/>
+    </Style>
+
+    <!-- Templates for sections -->    
+    <DataTemplate x:Key="OrderBySectionTemplate">
+        <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+            <Label Content="Sort by" />
+            <ComboBox Margin="4,0,0,0" Width="135" SelectedValue="{Binding SortProperty}" ItemsSource="{Binding SortOptions}" SelectedValuePath="PropertyTitle" DisplayMemberPath="DisplayName"  Style="{StaticResource ComboBoxTemplate}"/>
+            <CheckBox IsChecked="{Binding IsOrderDescending}" Margin="7,0,0,0" Content="Descending" VerticalAlignment="Center" />
+        </StackPanel>
+    </DataTemplate>
+    
+    <DataTemplate x:Key="SimpleEmployeeSelectorTemplate">
+        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+            <Label Content="Employee"/>
+            <TextBox IsEnabled="False" Text="{Binding EmployeeDisplay}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="250" Margin="5,0,15,0" Padding="5,0,0,0" />
+            <Button Content="Select Employee" Command="{Binding SelectEmployeeCommand}" Style="{StaticResource AddSimpleItemButtonTemplate}" Margin="0" Width="140" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="AddEmployeeToDataGridTempate">
+        <StackPanel Orientation="Horizontal" Margin="0,5,0,0" >
+            <Label Content="Employee"/>
+            <TextBox IsEnabled="False" Text="{Binding EmployeeDisplay}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="250" Margin="5,0,15,0" Padding="5,0,0,0" />
+            <Button Content="Select Employee" Style="{StaticResource AddSimpleItemButtonTemplate}" Command="{Binding SelectAvailableEmployeeCommand}" Margin="10,0,10,0" HorizontalAlignment="Right"/>
+            <Button Content="Add selected" Style="{StaticResource AddSimpleItemButtonTemplate}" Command="{Binding AddSelectedEmployeeToPropertyCommand}" Margin="10,0,10,0" HorizontalAlignment="Right"/>
+        </StackPanel>
+    </DataTemplate>
+    
+    <DataTemplate x:Key="SimpleEmployeeTableTemplate">
+        <DataGrid ItemsSource="{Binding CurrentPropertyEmployeeModels}" SelectedItem="{Binding CurrentPropertySelectedEmployeeModel}" HorizontalAlignment="Stretch" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Width="*" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Firstname" Width="5*" Binding="{Binding Firstname}"/>
+                <DataGridTextColumn Header="Surname" Width="5*" Binding="{Binding Surname}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="PersonalDataTemplate">
+        <StackPanel>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <Label Content="PESEL"/>
+                    <TextBox Text="{Binding Pesel}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="348"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                    <Label Content="Phone Number"/>
+                    <TextBox Text="{Binding PhoneNo}" Style="{StaticResource ShortInputTextBoxTemplate}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                    <Label Content="Date of birth"/>
+                    <DatePicker SelectedDate="{Binding DateOfBirth}" Style="{StaticResource DatePickerTemplate}"/>
+                    <Label Content="Place of birth" Margin="60,0,0,0"/>
+                    <TextBox Text="{Binding PlaceOfBirth}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="250px"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                    <Label Content="Children quantity"/>
+                    <TextBox Text="{Binding ChildrenQuantity}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="118px" Margin="0"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SalaryTemplate">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                <Label Content="Brutto price"/>
+                <TextBox Text="{Binding BruttoPrice}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="200" Margin="40,0,0,0"/>
+                <Label Content="Calculated netto:" Margin="20,0,0,0"/>
+                <Label Content="{Binding CalculatedNetto}" FontWeight="Bold" Margin="5,0,0,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Label Content="Tax rate [%]"/>
+                <TextBox Text="{Binding TaxRate}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="200" Margin="41,0,0,0"/>
+                <Label Content="Zus tax rate [%]" Margin="20,0,0,0"/>
+                <TextBox Text="{Binding ZusTaxRate}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Label Content="Declusions"/>
+                <TextBox Text="{Binding Declusions}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="200" Margin="45,0,0,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                <Label Content="Additional description"/>
+                <TextBox Text="{Binding AdditionalDescription}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="500" Margin="5,0,0,0"/>
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="PositionTemplate">
+        <StackPanel Margin="0,0,0,0">
+            <StackPanel Orientation="Horizontal" Margin="0,2,0,0" IsEnabled="{Binding IsReverseSelectedCreateNewPosition}" Opacity="{Binding PositionSelectionCheckBoxOpacity}">
+                <Label Content="Selected existing position:"/>
+                <!--<ComboBox ItemsSource="{Binding PositionModels}" DisplayMemberPath="DisplayTitleAndDepartment" SelectedItem="{Binding SelectedPositionModel}" Style="{StaticResource ComboBoxTemplate}" Margin="23,0,0,0" />-->
+                <TextBox IsEnabled="False" Text="{Binding SelectedPositionName}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="330" Margin="5,0,15,0" Padding="5,0,0,0" />
+                <Button Content="Select Position" Command="{Binding SelectPositionCommand}" Style="{StaticResource AddSimpleItemButtonTemplate}" Margin="0" Width="140" />
+            </StackPanel>
+            <StackPanel Margin="10,5,0,0">
+                <CheckBox IsChecked="{Binding IsSelectedCreateNewPosition}" Content="Create new position"/>
+            </StackPanel>
+            <StackPanel IsEnabled="{Binding IsSelectedCreateNewPosition}" Opacity="{Binding PositionSelectionCreatorOpacity}" Margin="0,5,0,0">
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                    <Label Content="Position"/>
+                    <TextBox Text="{Binding PositionName}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="350" Margin="27,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,8,0,5">
+                    <Label Content="Department"/>
+                    <TextBox Text="{Binding DepartmentName}" Opacity="{Binding DepartmentOpacity}" IsEnabled="{Binding IsActiveDepartmentName}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="350" Margin="5,0,0,0"/>
+                    <CheckBox IsChecked="{Binding IsCheckedDepartmentCheckBox}" Content="Do not assign department" VerticalAlignment="Center" Margin="25,0,0,0" />
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+    
+    <DataTemplate x:Key="EmployeeAdressesTemplate">
+        <StackPanel>
+            <GroupBox Header="Registration adress">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                        <Label Content="Country"/>
+                        <TextBox Text="{Binding RegistrationCountry}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="200px"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                        <Label Content="City"/>
+                        <TextBox Text="{Binding RegistrationCity}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="200px" Margin="33,0,0,0"/>
+                        <Label Content="Postal code" Margin="40,0,0,0"/>
+                        <TextBox Text="{Binding RegistrationPostalCode}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="200px"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                        <Label Content="Street"/>
+                        <TextBox Text="{Binding RegistrationStreet}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="230px" Margin="23,0,0,0"/>
+                        <Label Content="House Number" Margin="10,0,0,0"/>
+                        <TextBox Text="{Binding RegistrationHouseNo}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="80px" Margin="0"/>
+                        <Label Content="Flat Number" Margin="10,0,0,0"/>
+                        <TextBox Text="{Binding RegistrationFlatNo}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="80px" Margin="0"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Residence adress" Margin="0,15,0,0">
+                <StackPanel>
+                    <CheckBox Content="Use different address than Registration" IsEnabled="True" IsChecked="{Binding IsSelectedResidenceAddress}" Margin="0,8,0,8" />
+                    <StackPanel IsEnabled="{Binding IsSelectedResidenceAddress}" Opacity="{Binding ResidenceAddressOpacity}">
+                        <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                            <Label Content="Country"/>
+                            <TextBox Text="{Binding ResidenceCountry}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="200px"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                            <Label Content="City"/>
+                            <TextBox Text="{Binding ResidenceCity}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="200px" Margin="33,0,0,0"/>
+                            <Label Content="Postal code" Margin="40,0,0,0"/>
+                            <TextBox Text="{Binding ResidencePostalCode}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="200px"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                            <Label Content="Street"/>
+                            <TextBox Text="{Binding ResidenceStreet}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="230px" Margin="23,0,0,0"/>
+                            <Label Content="House Number" Margin="10,0,0,0"/>
+                            <TextBox Text="{Binding ResidenceHouseNo}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="80px" Margin="0"/>
+                            <Label Content="Flat Number" Margin="10,0,0,0"/>
+                            <TextBox Text="{Binding ResidenceFlatNo}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="80px" Margin="0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </DataTemplate>
+
+</ResourceDictionary>

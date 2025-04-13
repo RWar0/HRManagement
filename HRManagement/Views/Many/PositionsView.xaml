@@ -1,0 +1,65 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HRManagement.Views.Many"
+             xmlns:Many="clr-namespace:HRManagement.ViewModels.Many" x:Class="HRManagement.Views.Many.PositionsView"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Views/Single/CreatingResources.xaml"/>
+    </UserControl.Resources>
+    <d:UserControl.DataContext>
+        <Many:PositionsViewModel/>
+    </d:UserControl.DataContext>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <ToolBar Grid.Row="0">
+            <Button Margin="10 0" Content="Create new" Command="{Binding CreateNewWindowCommand}"/>
+            <Button Margin="10 0" Content="Refresh" Command="{Binding RefreshCommand}"/>
+            <Button Margin="10 0" Content="Delete" Command="{Binding DeleteCommand}" />
+            <Button Margin="10 0" Content="Edit" Command="{Binding EditCommand}" />
+        </ToolBar>
+        
+        <GroupBox Header="Filters" Grid.Row="1">
+            <WrapPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Has Department"/>
+                    <CheckBox VerticalAlignment="Center" IsChecked="{Binding HasDepartment}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Label Content="Title"/>
+                    <TextBox Text="{Binding TitleName}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="150" Margin="5,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Label Content="Department"/>
+                    <TextBox Text="{Binding DepartmentName}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="150" Margin="5,0,0,0"/>
+                </StackPanel>
+
+                <ContentControl ContentTemplate="{StaticResource OrderBySectionTemplate}" Content="{Binding}" />
+
+                <Button Content="Filter" Command="{Binding RefreshCommand}" Style="{StaticResource AddSimpleItemButtonTemplate}" Width="80" Margin="15,0,0,0"/>
+                <Button Content="Clean" Command="{Binding CleanFiltersCommand}" Style="{StaticResource AddSimpleItemButtonTemplate}" Width="80" Margin="10,0,0,0" />
+            </WrapPanel>
+        </GroupBox>
+        
+        <GroupBox Header="Positions" Grid.Row="2">
+            <DataGrid ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Width="*" Binding="{Binding Id}" />
+                    <DataGridTextColumn Header="Title" Width="3*" Binding="{Binding Title}" />
+                    <DataGridTextColumn Header="Department" Width="5*" Binding="{Binding DepartmentName}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+        
+    </Grid>
+    
+</UserControl>

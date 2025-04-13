@@ -1,0 +1,79 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HRManagement.Views.Many"
+             xmlns:Many="clr-namespace:HRManagement.ViewModels.Many" x:Class="HRManagement.Views.Many.AdressesView"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Views/Single/CreatingResources.xaml"/>
+    </UserControl.Resources>
+
+    <d:UserControl.DataContext>
+        <Many:AdressesViewModel/>
+    </d:UserControl.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ToolBar Grid.Row="0">
+            <Button Margin="10 0" Content="Create new" Command="{Binding CreateNewWindowCommand}"/>
+            <Button Margin="10 0" Content="Refresh" Command="{Binding RefreshCommand}"/>
+            <Button Margin="10 0" Content="Delete" Command="{Binding DeleteCommand}" />
+        </ToolBar>
+        <GroupBox Header="Filters" Grid.Row="1">
+            <WrapPanel Margin="0">
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Label Content="Country"/>
+                    <TextBox Text="{Binding CountryName}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="120" Margin="5,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Label Content="City"/>
+                    <TextBox Text="{Binding CityName}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="120" Margin="5,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Label Content="Street"/>
+                    <TextBox Text="{Binding StreetName}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="120" Margin="5,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Postal Code"/>
+                    <ComboBox ItemsSource="{Binding SelectingFilterModels}" SelectedValue="{Binding HasPostalCodeFilter}" SelectedValuePath="SelectedOption" DisplayMemberPath="OptionName" Style="{StaticResource ComboBoxTemplate}" Width="110"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Label Content="Street"/>
+                    <ComboBox ItemsSource="{Binding SelectingFilterModels}" SelectedValue="{Binding HasStreetFilter}" SelectedValuePath="SelectedOption" DisplayMemberPath="OptionName" Style="{StaticResource ComboBoxTemplate}" Width="110"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Label Content="Flat Number"/>
+                    <ComboBox ItemsSource="{Binding SelectingFilterModels}" SelectedValue="{Binding HasFlatNumberFilter}" SelectedValuePath="SelectedOption" DisplayMemberPath="OptionName" Style="{StaticResource ComboBoxTemplate}" Width="110"/>
+                </StackPanel>
+
+                <ContentControl ContentTemplate="{StaticResource OrderBySectionTemplate}" Content="{Binding}" />
+                
+                <Button Content="Filter" Command="{Binding RefreshCommand}" Style="{StaticResource AddSimpleItemButtonTemplate}" Width="80" Margin="15,0,0,0"/>
+                <Button Content="Clean" Command="{Binding CleanFiltersCommand}" Style="{StaticResource AddSimpleItemButtonTemplate}" Width="80" Margin="10,0,0,0" />
+            </WrapPanel>
+        </GroupBox>
+        <GroupBox Header="Adresses" Grid.Row="2">
+            <DataGrid ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Width="35" Binding="{Binding Id}" />
+                    <DataGridTextColumn Header="Country" Width="2*" Binding="{Binding Country}" />
+                    <DataGridTextColumn Header="City" Width="2*" Binding="{Binding City}" />
+                    <DataGridTextColumn Header="Postal Code" Width="*" Binding="{Binding PostalCode}" />
+                    <DataGridTextColumn Header="Street" Width="3*" Binding="{Binding Street}" />
+                    <DataGridTextColumn Header="House Number" Width="1.3*" Binding="{Binding HouseNumber}" />
+                    <DataGridTextColumn Header="Flat Number" Width="1.1*" Binding="{Binding FlatNumber}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+    </Grid>
+</UserControl>

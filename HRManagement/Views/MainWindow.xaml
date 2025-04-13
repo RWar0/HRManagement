@@ -1,0 +1,122 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HRManagement.Views"
+        xmlns:ViewModels="clr-namespace:HRManagement.ViewModels" x:Class="HRManagement.Views.MainWindow"
+        mc:Ignorable="d"
+        Title="HR Management" Height="720" Width="1280">
+    
+    <Window.Resources>
+        <ResourceDictionary Source="MainWindowResources.xaml"/>
+    </Window.Resources>
+    
+    <Window.DataContext>
+        <ViewModels:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <Grid x:Name="grid">
+        <!-- Grid definition -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200px"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="33px"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="30px"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Content -->
+        <Menu Grid.Row="0" Grid.Column="1" Padding="5px">
+            
+            <MenuItem Header="Employee">
+                <MenuItem Header="Add employee" Command="{Binding OpenEmployeeViewCommand}"/>
+                <MenuItem Header="Show employees" Command="{Binding OpenEmployeesViewCommand}"/>
+                <MenuItem Header="Personal Data">
+                    <MenuItem Header="Edit personal data" Command="{Binding OpenPersonalDataViewCommand}"/>
+                    <MenuItem Header="Show personal data" Command="{Binding OpenPersonalDatasViewCommand}"/>
+                </MenuItem>
+                <MenuItem Header="Salaries">
+                    <MenuItem Header="Edit salary" Command="{Binding OpenSalaryViewCommand}"/>
+                    <MenuItem Header="Show salaries" Command="{Binding OpenSalariesViewCommand}"/>
+                </MenuItem>
+                <MenuItem Header="Adresses">
+                    <MenuItem Header="Edit adresses" Command="{Binding OpenAdressViewCommand}"/>
+                    <MenuItem Header="Show adresses" Command="{Binding OpenAdressesViewCommand}"/>
+                </MenuItem>
+                <MenuItem Header="Careers">
+                    <MenuItem Header="Add/Edit career" Command="{Binding OpenCareerViewCommand}"/>
+                    <MenuItem Header="Show careers" Command="{Binding OpenCareersViewCommand}"/>
+                </MenuItem>
+                <MenuItem Header="Skill">
+                    <MenuItem Header="Add/Edit skill" Command="{Binding OpenSkillViewCommand}"/>
+                    <MenuItem Header="Show skills" Command="{Binding OpenSkillsViewCommand}"/>
+                </MenuItem>
+            </MenuItem>
+            
+            <MenuItem Header="Leave">
+                <MenuItem Header="View all" Command="{Binding OpenLeavesViewCommand}"/>
+                <MenuItem Header="Types">
+                    <MenuItem Header="Add new" Command="{Binding OpenLeaveTypeViewCommand}"/>
+                    <MenuItem Header="View all" Command="{Binding OpenLeaveTypesViewCommand}"/>
+                </MenuItem>
+                <MenuItem Header="Statuses">
+                    <MenuItem Header="Add new" Command="{Binding OpenLeaveStatusViewCommand}"/>
+                    <MenuItem Header="View all" Command="{Binding OpenLeaveStatusesViewCommand}"/>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Position">
+                <MenuItem Header="Add position" Command="{Binding OpenPositionViewCommand}"/>
+                <MenuItem Header="Show positions" Command="{Binding OpenPositionsViewCommand}"/>
+            </MenuItem>
+            <MenuItem Header="Promotion">
+                <MenuItem Header="Add promotion" Command="{Binding OpenPromotionViewCommand}"/>
+                <MenuItem Header="Show promotions" Command="{Binding OpenPromotionsViewCommand}"/>
+            </MenuItem>
+            <MenuItem Header="Bonus">
+                <MenuItem Header="Add bonus" Command="{Binding OpenBonusViewCommand}"/>
+                <MenuItem Header="Show bonuses" Command="{Binding OpenBonusesViewCommand}"/>
+            </MenuItem>
+            <MenuItem Header="Training">
+                <MenuItem Header="Add training" Command="{Binding OpenTrainingViewCommand}"/>
+                <MenuItem Header="Show trainings" Command="{Binding OpenTrainingsViewCommand}"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Side Content -->
+        <Border Grid.Row="0" Grid.Column="0" Background="#4757C4" BorderBrush="#3B4E94" BorderThickness="0,0,1,1"/>
+        <ScrollViewer Grid.Row="1" Grid.RowSpan="2" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+            <Border Grid.Column="0" Grid.RowSpan="2" Background="AliceBlue" BorderBrush="DarkCyan" BorderThickness="0,0,1,0">
+                <HeaderedContentControl
+                    Content="{Binding MenuCategories}"
+                    ContentTemplate="{StaticResource CommandsTemplate}"
+                />
+            </Border>
+        </ScrollViewer>
+
+
+        <Label Content="HR Management" FontFamily="pack://application:,,,/Fonts/Orbitron-VariableFont_wght.ttf#Orbitron" HorizontalAlignment="Center" FontWeight="SemiBold" Width="auto" FontSize="16px" Foreground="White"/>
+
+        <!-- Center Content -->
+        <Border Grid.Row="1" Grid.Column="1">
+            <HeaderedContentControl
+                Header="Workspace"
+                Background="LightBlue"
+                Content="{Binding Workspaces}"
+                ContentTemplate="{StaticResource WorkspacesTemplate}"
+                Style="{StaticResource MainHCCStyle}"
+            />
+        </Border>
+        <!-- Bottom Content -->
+        <StatusBar Grid.Row="3" Grid.Column="1" Background="#dbedff">
+            <StatusBarItem>
+                <TextBlock FontFamily="pack://application:,,,/Fonts/Orbitron-VariableFont_wght.ttf#Orbitron" Padding="5,0,0,0"><Run Text="Rafał Waremczuk"/></TextBlock>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock FontFamily="pack://application:,,,/Fonts/Orbitron-VariableFont_wght.ttf#Orbitron" Padding="0,0,5,0"><Run Text="WSB-NLU"/></TextBlock>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

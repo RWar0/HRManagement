@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="HRManagement.Views.Single.SalaryCalculatorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HRManagement.Views.Single" xmlns:Single="clr-namespace:HRManagement.ViewModels.Single"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <UserControl.Resources>
+        <ResourceDictionary Source="CreatingResources.xaml"/>
+    </UserControl.Resources>
+    
+    <d:UserControl.DataContext>
+        <Single:SalaryCalculatorViewModel/>
+    </d:UserControl.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="Oprions" Grid.Row="0">
+            <ToolBar>
+                <Button Margin="10 0" Content="Clean form" Command="{Binding CleanButton}" Grid.Row="0"/>
+            </ToolBar>
+        </GroupBox>
+
+        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Grid.Row="1" Height="auto" VerticalContentAlignment="Top">
+            <StackPanel Margin="10">
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,15" HorizontalAlignment="Center">
+                    <Button IsEnabled="{Binding IsNettoEnable}" Opacity="{Binding NettoOpacity}" Content="Calculate netto" Command="{Binding ChangeValueButton}" Style="{StaticResource AddSimpleItemButtonTemplate}" Margin="0"/>
+                    <Button IsEnabled="{Binding IsBruttoEnable}" Opacity="{Binding BruttoOpacity}" Content="Calculate brutto" Command="{Binding ChangeValueButton}"  Style="{StaticResource AddSimpleItemButtonTemplate}" Margin="0"/>
+                </StackPanel>
+                <GroupBox Header="Salary calculator" Padding="10">
+                    <StackPanel>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="110"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Content="{Binding EnteringValueTitle}" Grid.Row="0" Grid.Column="0"/>
+                            <TextBox Text="{Binding EnteringValue}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="290" Padding="0" Margin="0" Grid.Row="0" Grid.Column="1"/>
+
+                            <Label Content="Tax rate [%]" Grid.Row="2" Grid.Column="0"/>
+                            <TextBox Text="{Binding TaxRate}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="290" Margin="0" Grid.Row="2" Grid.Column="1"/>
+
+                            <Label Content="Zus tax rate [%]" Grid.Row="4" Grid.Column="0"/>
+                            <TextBox Text="{Binding ZusTaxRate}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="290" Margin="0" Grid.Row="4" Grid.Column="1"/>
+
+                            <Label Content="Declusions" Grid.Row="6" Grid.Column="0"/>
+                            <TextBox Text="{Binding Declusions}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="290" Margin="0" Grid.Row="6" Grid.Column="1"/>
+
+                            <Label VerticalAlignment="Center" Content="{Binding CalculatedValueTitle}" Grid.Row="8" Grid.Column="0"/>
+                            <Label FontSize="16" Content="{Binding CalculatedValue}" FontWeight="Bold" Margin="0" Grid.Row="8" Grid.Column="1"/>
+                        </Grid>
+                        
+                    </StackPanel>
+                </GroupBox>
+                <StackPanel HorizontalAlignment="Center">
+                    <Label Content="{Binding MessageLabel}" Foreground="{Binding MessageColor}" Style="{StaticResource MessageLabelTemplate}"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+    
+</UserControl>

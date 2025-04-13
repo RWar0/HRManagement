@@ -1,0 +1,101 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HRManagement.Views.Single"
+             xmlns:Single="clr-namespace:HRManagement.ViewModels.Single" x:Class="HRManagement.Views.Single.PromotionView"
+             mc:Ignorable="d" 
+             d:DesignHeight="900" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary Source="CreatingResources.xaml"/>
+    </UserControl.Resources>
+
+
+    <d:UserControl.DataContext>
+        <Single:PromotionViewModel/>
+    </d:UserControl.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="Filters" Grid.Row="0">
+            <ToolBar>
+                <Button Margin="10 0" Content="{Binding AcceptButtonMessage}" Command="{Binding SaveCommand}" Grid.Row="0"/>
+            </ToolBar>
+        </GroupBox>
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="1" Height="auto" Width="auto" VerticalContentAlignment="Top">
+            <GroupBox Header="Promotion">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <ContentControl ContentTemplate="{StaticResource SimpleEmployeeSelectorTemplate}" Content="{Binding}" />
+                        <Label Content="{Binding EmployeeMessageLabel}" Foreground="{Binding EmployeeMessageColor}" Style="{StaticResource MessageLabelTemplate}" Margin="20,5,0,0"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <Label Content="Date of promotion"/>
+                        <DatePicker SelectedDate="{Binding PromotionDate}" Style="{StaticResource DatePickerTemplate}" Margin="5,0,0,0"/>
+                    </StackPanel>
+
+                    <GroupBox Header="Current employee information" Margin="0,10,0,0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Current position"/>
+                                <TextBox IsEnabled="False" Text="{Binding OldPositionTitle}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="350" />
+                                <TextBox IsEnabled="False" Text="{Binding OldPositionDepartment}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="300" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                <Label Content="Current salary"/>
+                            </StackPanel>
+                            <StackPanel Margin="10,0,0,0">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                                        <Label Content="Brutto price"/>
+                                        <TextBox IsEnabled="False" Text="{Binding OldSalaryBL.BruttoPrice}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="200" Margin="40,0,0,0"/>
+                                        <Label Content="Calculated netto:" Margin="20,0,0,0"/>
+                                        <Label Content="{Binding OldSalaryBL.NettoPrice}" FontWeight="Bold" Margin="5,0,0,0"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                        <Label Content="Tax rate [%]"/>
+                                        <TextBox IsEnabled="False" Text="{Binding OldSalaryBL.TaxRatePercent}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="200" Margin="40,0,0,0"/>
+                                        <Label Content="Zus tax rate [%]" Margin="20,0,0,0"/>
+                                        <TextBox IsEnabled="False" Text="{Binding OldSalaryBL.ZusTaxRatePercent}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="200"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                        <Label Content="Declusions"/>
+                                        <TextBox IsEnabled="False" Text="{Binding OldSalaryBL.Declusions}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="200" Margin="45,0,0,0"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                                        <Label Content="Additional description"/>
+                                        <TextBox IsEnabled="False" Text="{Binding OldSalaryBL.AdditionalDescription}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="500" Margin="5,0,0,0"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="New information to assign" Margin="0,10,0,0">
+                        <StackPanel>
+                            <CheckBox IsChecked="{Binding IsSelectedAssignNewPosition}" Content="Assign new position" Margin="10,10,0,3"/>
+                            <GroupBox IsEnabled="{Binding IsAssignNewPositionEnable}" Opacity="{Binding AssignNewPositionOppacity}" Header="Position" Margin="0" Padding="0">
+                                <ContentControl ContentTemplate="{StaticResource PositionTemplate}" Content="{Binding}" />
+                            </GroupBox>
+
+                            <CheckBox IsChecked="{Binding IsSelectedAssignNewSalary}" Content="Assign new salary" Margin="10,10,0,3"/>
+                            <GroupBox IsEnabled="{Binding IsAssignNewSalaryEnable}" Opacity="{Binding AssignNewSalaryOppacity}" Header="Salary">
+                                <ContentControl ContentTemplate="{StaticResource SalaryTemplate}" Content="{Binding}" Margin="0,10,0,0"/>
+                            </GroupBox>
+
+                            <Button Content="{Binding AcceptButtonMessage}" Command="{Binding SaveCommand}" Style="{StaticResource AddButtonTemplate}" Margin="0,20,0,20"/>
+                            <Label Content="{Binding MessageLabel}" Foreground="{Binding MessageColor}" Style="{StaticResource MessageLabelTemplate}" Margin="0,0,0,10"/>
+                        </StackPanel>
+                        
+                    </GroupBox>
+                </StackPanel>
+            </GroupBox>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

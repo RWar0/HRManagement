@@ -1,0 +1,80 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HRManagement.Views.Single"
+             xmlns:Single="clr-namespace:HRManagement.ViewModels.Single" x:Class="HRManagement.Views.Single.LeaveView"
+             mc:Ignorable="d" 
+             d:DesignHeight="550" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary Source="CreatingResources.xaml"/>
+    </UserControl.Resources>
+
+    <d:UserControl.DataContext>
+        <Single:LeaveViewModel/>
+    </d:UserControl.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="Filters" Grid.Row="0">
+            <ToolBar>
+                <Button Margin="10 0" Content="{Binding AcceptButtonMessage}" Command="{Binding SaveCommand}" Grid.Row="0"/>
+                <Button Margin="10 0" Content="Refresh" Command="{Binding RefreshCommand}" Grid.Row="0"/>
+            </ToolBar>
+        </GroupBox>
+        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Grid.Row="1" Height="auto">
+            <StackPanel>
+                <GroupBox Header="Leave">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <Label Content="Employee"/>
+                            <TextBox IsEnabled="False" Text="{Binding EmployeeDisplay}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="250" Margin="20,0,15,0" Padding="5,0,0,0" />
+                            <Button Visibility="{Binding CollapsedButtonProperty}" Content="Select Employee" Command="{Binding SelectEmployeeCommand}" Style="{StaticResource AddSimpleItemButtonTemplate}" Margin="0" Width="140" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <Label Content="Available days of leaves: "/>
+                            <Label FontWeight="Bold" Content="{Binding AvailableLeaveDays}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <Label Content="Leave Type"/>
+                            <TextBox IsEnabled="False" Text="{Binding LeaveTypeSelectedName}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="250" Margin="20,0,15,0" Padding="5,0,0,0" />
+                            <Button Content="Select Leave Type" Command="{Binding SelectLeaveTypeCommand}" Style="{StaticResource AddSimpleItemButtonTemplate}" Margin="0" Width="140" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <Label Content="Reason"/>
+                            <TextBox Text="{Binding Reason}" IsEnabled="{Binding IsReasonTextBoxEnabled}" Opacity="{Binding ReasonTextBoxOpacity}" Margin="42,0,0,0" Style="{StaticResource ShortInputTextBoxTemplate}" Width="550" Height="70" AcceptsReturn="True" TextWrapping="Wrap" TextAlignment="Left" VerticalContentAlignment="Top"/>
+                            <CheckBox IsChecked="{Binding IsCheckedReasonCheckBox}" Content="No reason" VerticalAlignment="Center" Margin="25,-45,0,0" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+                            <Label Content="Begin Date"/>
+                            <DatePicker SelectedDate="{Binding BeginDate}" Style="{StaticResource DatePickerTemplate}" Margin="23,0,0,0"/>
+                            <Label Content="End Date" Margin="45,0,0,0"/>
+                            <DatePicker SelectedDate="{Binding EndDate}" Style="{StaticResource DatePickerTemplate}" Margin="14,0,0,0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+                            <Label Content="Leave Status"/>
+                            <TextBox IsEnabled="False" Text="{Binding LeaveStatusSelectedName}" Style="{StaticResource ShortInputTextBoxTemplate}" Width="250" Margin="20,0,15,0" Padding="5,0,0,0" />
+                            <Button Content="Select Leave Status" Command="{Binding SelectLeaveStatusCommand}" Style="{StaticResource AddSimpleItemButtonTemplate}" Margin="0" Width="140" />
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <Label Content="Available days left when proceed: "/>
+                            <Label FontWeight="Bold" Content="{Binding AvailableDaysAfterLeave}"/>
+                        </StackPanel>
+
+                        <Button Content="{Binding AcceptButtonMessage}" Command="{Binding SaveCommand}" Style="{StaticResource AddButtonTemplate}" Margin="0,40,0,20"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <Label Content="{Binding MessageLabel}" Foreground="{Binding MessageColor}" Style="{StaticResource MessageLabelTemplate}"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+    
+</UserControl>
